@@ -21,6 +21,10 @@ builder.Services.AddServerSideBlazor();
 //             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<CustomerService>();
 
+builder.Services.AddScoped<CompanyService>();
+
+builder.Services.AddScoped<BillService>();
+
 builder.Services.AddMudServices();
 
 var app = builder.Build();

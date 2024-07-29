@@ -1,0 +1,11 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudTextField T="string" Label="Type" @bind-Value="@Model.Type"></MudTextField>
+        <MudTextField T="int" Label="Amount" @bind-Value="@Model.Amount"></MudTextField>
+        <MudTextField T="bool" Label="Paid" @bind-Value="@Model.Paid"></MudTextField>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Add</MudButton>
+    </DialogActions>
+</MudDialog>

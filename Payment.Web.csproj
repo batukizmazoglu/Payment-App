@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\BillGrid.razor" />
+    <Content Remove="Pages\MudButton.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="GenFu" Version="1.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.20" />
@@ -24,6 +29,24 @@
   <ItemGroup>
     <ProjectReference Include="..\Payment.Client\Payment.Client.csproj" />
     <ProjectReference Include="..\Payment.Shared\Payment.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\BillGrid.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\BillGrid.razor" />
+    <_ContentIncludedByDefault Remove="Pages\MudButton.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\BillGrid.razor" />
+    <None Include="Pages\MudButton.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\MudButton.razor" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,11 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudTextField T="string" Label="Name" @bind-Value="@Model.Name"></MudTextField>
+        <MudTextField T="string" Label="Address" @bind-Value="@Model.Address"></MudTextField>
+        <MudTextField T="string" Label="City" @bind-Value="@Model.City"></MudTextField>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Add</MudButton>
+    </DialogActions>
+</MudDialog>

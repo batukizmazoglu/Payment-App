@@ -1,5 +1,4 @@
-﻿
-using GenFu;
+﻿using GenFu;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor;
@@ -17,8 +16,10 @@ namespace Payment.Web.Pages
         [CascadingParameter]
         private MudDialogInstance MudDialog { get; set; }
 
-        //[Parameter]
-        //public Customers Customers { get; set; }
+
+
+        [Inject]
+        public IDialogService DialogService { get; set; }
 
         public Customers newAddedCustomer { get; set; } = new Customers();
 

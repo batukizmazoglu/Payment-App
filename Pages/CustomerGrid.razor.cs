@@ -7,9 +7,6 @@ using Payment.Shared;
 
 namespace Payment.Web.Pages;
 
-  
- 
- 
 public partial class CustomerGrid
 {
     private bool _readOnly;
@@ -20,13 +17,10 @@ public partial class CustomerGrid
     public List<Customers> Datasource { get; set; }
 
     [Inject]
+    public IDialogService DialogService { get; set; }
+
+    [Inject]
     public CustomerService CustomerService { get; set; }
-
-    public Customers newCustomer { get; set; }
-
-    [CascadingParameter(Name = "Khalid")]
-
-    public string Khalid { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -39,15 +33,6 @@ public partial class CustomerGrid
     {
         base.OnAfterRender(firstRender);
     }
-    //void AddNewCustomer()
-    //{
-    //    newCustomer = A.New<Customers>();
-    //    newCustomer.CustomerNo = 0;
-    //    Datasource.Add(newCustomer);
-    //    Database.Customers.Add(newCustomer);
-    //    _events.Insert(0, $"Event = AddNewCustomer, Data = {System.Text.Json.JsonSerializer.Serialize(newCustomer)}");
-    //    Database.SaveChanges();
-    //}
 
     void DeleteItem(Customers item)
     {
