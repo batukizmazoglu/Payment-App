@@ -1,0 +1,11 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudTextField T="string" Label="Name" @bind-Value="@newAddedCustomer.name"></MudTextField>
+        <MudTextField T="string" Label="Surname" @bind-Value="@newAddedCustomer.surname"></MudTextField>
+        <MudTextField T="int" Label="Age" @bind-Value="@newAddedCustomer.age"></MudTextField>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Add</MudButton>
+    </DialogActions>
+</MudDialog>
