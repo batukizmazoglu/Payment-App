@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0mJEH/srxtM=",
+  "dgSpecHash": "ICfYGmQTug7a8bycbn5KDiFhSPQh3G26R/i8yjzwhtmNz5HuLblMwvB/mj9t0KPc0HbZjs7v4EHRfCnIDDj3aw==",
   "success": true,
   "projectFilePath": "C:\\Users\\user\\Source\\Repos\\Payment-App\\Payment.Web.csproj",
   "expectedPackageFiles": [
@@ -53,7 +53,7 @@
     "C:\\Users\\user\\.nuget\\packages\\microsoft.win32.primitives\\4.0.1\\microsoft.win32.primitives.4.0.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\mudblazor\\7.3.0\\mudblazor.7.3.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\mudblazor\\7.4.0\\mudblazor.7.4.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\netstandard.library\\1.6.0\\netstandard.library.1.6.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\runtime.native.system\\4.0.0\\runtime.native.system.4.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\runtime.native.system.io.compression\\4.1.0\\runtime.native.system.io.compression.4.1.0.nupkg.sha512",

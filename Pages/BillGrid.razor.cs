@@ -1,6 +1,5 @@
 ﻿using MudBlazor;
 using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
 using Payment.Client;
 using Payment.Shared;
 
@@ -21,16 +20,13 @@ public partial class BillGrid
     [Inject]
     public BillService BillService { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-
-        Datasource = await BillService.ReadAsync();
-
-    }
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-    }
+    // override 
+    //protected override async Task OnInitializedAsync() => 
+    // protected async Task OnInitializedAsync()
+    // {
+    //     Datasource = await BillService.ReadAsync();
+    //     await base.OnInitializedAsync();
+    // }
 
     void DeleteItem(Bills item)
     {
