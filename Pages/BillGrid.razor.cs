@@ -1,5 +1,5 @@
-﻿using MudBlazor;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using Payment.Client;
 using Payment.Shared;
 
@@ -14,20 +14,20 @@ public partial class BillGrid
 
     [Inject]
     public IDialogService DialogService { get; set; }
+    
 
     public List<Bills> Datasource { get; set; }
+    
 
     [Inject]
     public BillService BillService { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        Datasource = await BillService.ReadAsync();
+    }
 
-    // override 
-    //protected override async Task OnInitializedAsync() => 
-    // protected async Task OnInitializedAsync()
-    // {
-    //     Datasource = await BillService.ReadAsync();
-    //     await base.OnInitializedAsync();
-    // }
-
+    
     void DeleteItem(Bills item)
     {
         Datasource.Remove(item);
@@ -66,6 +66,5 @@ public partial class BillGrid
 
         var response = await dialogReference.GetReturnValueAsync<Bills>();
         Datasource.Add(response);
-        Console.WriteLine();
     }
 }

@@ -1,7 +1,5 @@
-﻿using MudBlazor;
-using GenFu;
-using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using Payment.Client;
 using Payment.Shared;
 
@@ -13,26 +11,23 @@ public partial class CompanyGrid
     private bool _isCellEditMode;
     private List<string> _events = new();
     private bool _editTriggerRowClick;
-
+    
     [Inject]
     public IDialogService DialogService { get; set; }
 
+    
     public List<Companies> Datasource { get; set; }
 
+    
     [Inject]
     public CompanyService CompanyService { get; set; }
-
+    
+    
     protected override async Task OnInitializedAsync()
     {
-
         Datasource = await CompanyService.ReadAsync();
-
     }
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-    }
-
+    
     void DeleteItem(Companies item)
     {
         Datasource.Remove(item);
@@ -71,6 +66,5 @@ public partial class CompanyGrid
 
         var response = await dialogReference.GetReturnValueAsync<Companies>();
         Datasource.Add(response);
-        Console.WriteLine();
     }
 }

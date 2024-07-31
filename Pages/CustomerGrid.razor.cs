@@ -1,6 +1,4 @@
-﻿using GenFu;
-using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Payment.Client;
 using Payment.Shared;

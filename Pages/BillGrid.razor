@@ -3,13 +3,15 @@
 <h3>Bills</h3>
 
 <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenDialogAsync">
-    Ekle
+    Add
 </MudButton>
 
 <MudDataGrid T="Bills" Items="@Datasource" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
              StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
              Bordered="true" Dense="true" EditTrigger="@(_editTriggerRowClick ? DataGridEditTrigger.OnRowClick : DataGridEditTrigger.Manual)">
     <Columns>
+        <PropertyColumn Property="x => x.CompanyId" Title="Company's ID" />
+        <PropertyColumn Property="x => x.customerId" Title="Customer's ID" />
         <PropertyColumn Property="x => x.Type" Title="Type" />
         <PropertyColumn Property="x => x.Amount" Title="Amount" />
         <PropertyColumn Property="x => x.Paid" Title="Paid" />
