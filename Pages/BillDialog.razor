@@ -1,5 +1,7 @@
 ﻿<MudDialog>
     <DialogContent>
+        <MudTextField T="int" Label="Company's ID" @bind-Value="@Model.CompanyId"></MudTextField>
+        <MudTextField T="int" Label="Customer's ID" @bind-Value="@Model.customerId"></MudTextField>
         <MudTextField T="string" Label="Type" @bind-Value="@Model.Type"></MudTextField>
         <MudTextField T="int" Label="Amount" @bind-Value="@Model.Amount"></MudTextField>
         <MudTextField T="bool" Label="Paid" @bind-Value="@Model.Paid"></MudTextField>
