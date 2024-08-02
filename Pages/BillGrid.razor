@@ -1,8 +1,8 @@
 ﻿@page "/billgrid"
 
-<h3>Bills</h3>
+<h3 class="mb-4">Bills</h3>
 
-<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenDialogAsync">
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenDialogAsync" Class="mb-4">
     Add
 </MudButton>
 
@@ -24,18 +24,18 @@
     </Columns>
 </MudDataGrid>
 
-<MudExpansionPanels Style="flex:1">
+<MudExpansionPanels Style="flex:1; margin-top: 2rem;">
     <MudExpansionPanel Text="Show Events">
         @foreach (var message in _events)
         {
-            <MudText Typo="@Typo.body2">@message</MudText>
+        <MudText Typo="@Typo.body2">@message</MudText>
         }
         @if (_events.Count > 0)
         {
-            <div class="d-flex">
-                <MudSpacer />
-                <MudButton Class="mt-3" ButtonType="ButtonType.Button" Variant="Variant.Filled" OnClick="@(() => _events.Clear())">Clear</MudButton>
-            </div>
+        <div class="d-flex mt-3">
+            <MudSpacer />
+            <MudButton Variant="Variant.Filled" OnClick="@(() => _events.Clear())">Clear</MudButton>
+        </div>
         }
     </MudExpansionPanel>
 </MudExpansionPanels>
