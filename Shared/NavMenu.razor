@@ -11,7 +11,7 @@
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <span class="oi oi-dashboard" aria-hidden="true"></span> Dashboard
             </NavLink>
         </div>
         <div class="nav-item px-3">
@@ -33,18 +33,18 @@
 </div>
 
 @code {
-    private bool collapseNavMenu = true;
+    private bool _collapseNavMenu = true;
 
     private string? NavMenuCssClass
     {
         get
         {
-            return collapseNavMenu ? "collapse" : null;
+            return _collapseNavMenu ? "collapse" : null;
         }
     }
 
     private void ToggleNavMenu()
     {
-        collapseNavMenu = !collapseNavMenu;
+        _collapseNavMenu = !_collapseNavMenu;
     }
 }

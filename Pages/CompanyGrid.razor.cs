@@ -3,68 +3,84 @@ using MudBlazor;
 using Payment.Client;
 using Payment.Shared;
 
-namespace Payment.Web.Pages;
-
-public partial class CompanyGrid
+namespace Payment.Web.Pages
 {
-    private bool _readOnly;
-    private bool _isCellEditMode;
-    private List<string> _events = new();
-    private bool _editTriggerRowClick;
-    
-    [Inject]
-    public IDialogService DialogService { get; set; }
-
-    
-    public List<Companies> Datasource { get; set; }
-
-    
-    [Inject]
-    public CompanyService CompanyService { get; set; }
-    
-    
-    protected override async Task OnInitializedAsync()
+    public partial class CompanyGrid
     {
-        Datasource = await CompanyService.ReadAsync();
-    }
-    
-    void DeleteItem(Companies item)
-    {
-        Datasource.Remove(item);
-        _events.Insert(0, $"Event = DeleteItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-    }
+        // Flags to control grid behavior and editing state
+        private bool _readOnly;
+        private bool _isCellEditMode;
+        private List<string> _events = new();
+        private bool _editTriggerRowClick;
+        
+        // Injected dialog service to manage dialogs
+        [Inject]
+        public IDialogService DialogService { get; set; }
 
-    void StartedEditingItem(Companies item)
-    {
-        _events.Insert(0, $"Event = StartedEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-    }
+        // List to hold company data for the grid
+        public List<Companies> Datasource { get; set; }
 
-    void CanceledEditingItem(Companies item)
-    {
-        _events.Insert(0, $"Event = CanceledEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-    }
+        // Injected service to interact with the backend for company operations
+        [Inject]
+        public CompanyService CompanyService { get; set; }
+        
+        // Method to initialize component and load data from the service
+        protected override async Task OnInitializedAsync()
+        {
+            // Load companies data asynchronously
+            Datasource = await CompanyService.ReadAsync();
+        }
 
-    async Task CommittedItemChanges(Companies item)
-    {
-        var index = Datasource.IndexOf(item);
+        // Method to delete a company item from the datasource
+        void DeleteItem(Companies item)
+        {
+            Datasource.Remove(item);
+            _events.Insert(0, $"Event = DeleteItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+        }
 
-        var response = await CompanyService.UpdateAsync(item);
+        // Method to handle the start of editing a company item
+        void StartedEditingItem(Companies item)
+        {
+            _events.Insert(0, $"Event = StartedEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+        }
 
-        Datasource[index] = response;
+        // Method to handle cancellation of editing a company item
+        void CanceledEditingItem(Companies item)
+        {
+            _events.Insert(0, $"Event = CanceledEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+        }
 
-        _events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-    }
-    public enum ViewState
-    {
-        Create, Update, Delete
-    }
-    private async Task OpenDialogAsync()
-    {
-        var options = new DialogOptions { CloseOnEscapeKey = true };
+        // Method to commit changes made to a company item
+        async Task CommittedItemChanges(Companies item)
+        {
+            var index = Datasource.IndexOf(item);
 
-        var dialogReference = await DialogService.ShowAsync<CompanyDialog>("Simple Dialog", options);
+            // Update the company item via the service
+            var response = await CompanyService.UpdateAsync(item);
 
-        var response = await dialogReference.GetReturnValueAsync<Companies>();
-        Datasource.Add(response);
+            // Update the datasource with the response
+            Datasource[index] = response;
+
+            _events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+        }
+
+        // Enumeration for different view states
+        public enum ViewState
+        {
+            Create, Update, Delete
+        }
+
+        // Method to open a dialog for creating a new company
+        private async Task OpenDialogAsync()
+        {
+            var options = new DialogOptions { CloseOnEscapeKey = true };
+
+            // Show the dialog and wait for it to return a result
+            var dialogReference = await DialogService.ShowAsync<CompanyDialog>("Simple Dialog", options);
+
+            // Add the new company to the datasource
+            var response = await dialogReference.GetReturnValueAsync<Companies>();
+            Datasource.Add(response);
+        }
     }
 }
