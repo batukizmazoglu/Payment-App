@@ -1,27 +1,55 @@
 ﻿@page "/billgrid"
 
-<h3 class="mb-4">Bills</h3>
+<MudText Typo="Typo.h3" Class="mb-2">Bill Management</MudText>
 
-<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenDialogAsync" Class="mb-4">
-    Add
-</MudButton>
+<MudPaper Class="pa-4 mb-4">
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="4">
+            <MudSelect T="string" Label="Filter by" @bind-Value="_filterBy">
+                <MudSelectItem Value="@("Company's ID")">CompanyNo</MudSelectItem>
+                <MudSelectItem Value="@("Customer's ID")">CustomerNo</MudSelectItem>
+                <MudSelectItem Value="@("Type")">Type</MudSelectItem>
+                <MudSelectItem Value="@("Amount")">Amount</MudSelectItem>
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="8" Class="d-flex justify-end align-items-center">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OpenDialogAsync" StartIcon="@Icons.Material.Filled.Add" Size="Size.Medium">
+                Add Bill
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+</MudPaper>
 
-<MudDataGrid T="Bills" Items="@Datasource" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
-             StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
-             Bordered="true" Dense="true" EditTrigger="@(_editTriggerRowClick ? DataGridEditTrigger.OnRowClick : DataGridEditTrigger.Manual)">
+<MudDataGrid T="Bills" Items="@Datasource" ReadOnly="@_readOnly"
+             EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
+             StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem"
+             CommittedItemChanges="@CommittedItemChanges"
+             Bordered="true" Dense="true"
+             EditTrigger="@(_editTriggerRowClick ? DataGridEditTrigger.OnRowClick : DataGridEditTrigger.Manual)"
+             SortMode="SortMode.Multiple" Filterable="true" QuickFilter="@QuickFilter"
+             Hover="true" Striped="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Bills</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
     <Columns>
-        <PropertyColumn Property="x => x.CompanyId" Title="Company's ID" />
-        <PropertyColumn Property="x => x.CustomerNo" Title="Customer's ID" />
-        <PropertyColumn Property="x => x.Type" Title="Type" />
-        <PropertyColumn Property="x => x.Amount" Title="Amount" />
-        <PropertyColumn Property="x => x.Paid" Title="Paid" />
+        <PropertyColumn Property="x => x.CompanyNo" Title="Company's ID"/>
+        <PropertyColumn Property="x => x.CustomerNo" Title="Customer's ID"/>
+        <PropertyColumn Property="x => x.Type" Title="Type"/>
+        <PropertyColumn Property="x => x.Amount" Title="Amount"/>
+        <PropertyColumn Property="x => x.Paid" Title="Paid"/>
         <TemplateColumn Hidden="@(_isCellEditMode || _readOnly || _editTriggerRowClick)" CellClass="d-flex justify-end">
             <CellTemplate>
-                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
-                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Rounded.Delete" OnClick="@(() => DeleteItem(context.Item))" />
+                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync"/>
+                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Rounded.Delete" Color="Color.Error" OnClick="@(() => DeleteItem(context.Item))"/>
             </CellTemplate>
         </TemplateColumn>
     </Columns>
+    <PagerContent>
+        <MudDataGridPager T="Bills" />
+    </PagerContent>
 </MudDataGrid>
 
 <MudExpansionPanels Style="flex:1; margin-top: 2rem;">

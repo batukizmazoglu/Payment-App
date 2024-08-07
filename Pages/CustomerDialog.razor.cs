@@ -27,6 +27,7 @@ namespace Payment.Web.Pages
         {
             // Call the service to create a new customer with the data from the model
             var response = await CustomerService.CreateAsync(Model);
+            
             // Close the dialog and pass the response
             MudDialog.Close(response);
         }

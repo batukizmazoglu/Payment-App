@@ -6,9 +6,10 @@
     <MudGrid>
         <MudItem xs="12" sm="6" md="4">
             <MudSelect T="string" Label="Filter by" @bind-Value="_filterBy">
-                <MudSelectItem Value="@("name")">Name</MudSelectItem>
-                <MudSelectItem Value="@("surname")">Surname</MudSelectItem>
-                <MudSelectItem Value="@("age")">Age</MudSelectItem>
+                <MudSelectItem Value="@("Name")">Name</MudSelectItem>
+                <MudSelectItem Value="@("Surname")">Surname</MudSelectItem>
+                <MudSelectItem Value="@("Age")">Age</MudSelectItem>
+                <MudSelectItem Value="@("Balance")">Balance</MudSelectItem>
             </MudSelect>
         </MudItem>
         <MudItem xs="12" sm="6" md="8" Class="d-flex justify-end align-items-center">
@@ -34,14 +35,15 @@
                       AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
     <Columns>
+        <PropertyColumn Property="x => x.CustomerNo" Title="Customer's ID" />
         <PropertyColumn Property="x => x.Name" Title="Name" />
         <PropertyColumn Property="x => x.Surname" Title="Surname" />
         <PropertyColumn Property="x => x.Age" Title="Age" />
+        <PropertyColumn Property="x => x.Balance" Title="Balance" />
         <TemplateColumn Hidden="@(_isCellEditMode || _readOnly || _editTriggerRowClick)" CellClass="d-flex justify-end">
             <CellTemplate>
                 <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
-                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Rounded.Delete" Color="Color.Error"
-                               OnClick="@(() => DeleteItem(context.Item))" />
+                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Rounded.Delete" Color="Color.Error"  OnClick="@(() => DeleteItem(context.Item))" />
             </CellTemplate>
         </TemplateColumn>
     </Columns>
@@ -49,3 +51,19 @@
         <MudDataGridPager T="Customers" />
     </PagerContent>
 </MudDataGrid>
+
+<MudExpansionPanels Style="flex:1; margin-top: 2rem;">
+    <MudExpansionPanel Text="Show Events">
+        @foreach (var message in _events)
+        {
+        <MudText Typo="@Typo.body2">@message</MudText>
+        }
+        @if (_events.Count > 0)
+        {
+        <div class="d-flex mt-3">
+            <MudSpacer />
+            <MudButton Variant="Variant.Filled" OnClick="@(() => _events.Clear())">Clear</MudButton>
+        </div>
+        }
+    </MudExpansionPanel>
+</MudExpansionPanels>

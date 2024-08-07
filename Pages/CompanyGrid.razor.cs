@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Payment.Client;
 using Payment.Shared;
@@ -12,18 +13,18 @@ namespace Payment.Web.Pages
         private bool _isCellEditMode;
         private List<string> _events = new();
         private bool _editTriggerRowClick;
-        
-        // Injected dialog service to manage dialogs
-        [Inject]
-        public IDialogService DialogService { get; set; }
+        private string _searchString = "";
+        private string _filterBy = "Name of the company";
 
         // List to hold company data for the grid
         public List<Companies> Datasource { get; set; }
 
-        // Injected service to interact with the backend for company operations
-        [Inject]
-        public CompanyService CompanyService { get; set; }
-        
+        // Injected services for managing dialogs, companies operations, and notifications
+        [Inject] public IDialogService DialogService { get; set; }
+        [Inject] public CompanyService CompanyService { get; set; }
+
+        [Inject] public ISnackbar Snackbar { get; set; }
+
         // Method to initialize component and load data from the service
         protected override async Task OnInitializedAsync()
         {
@@ -31,11 +32,49 @@ namespace Payment.Web.Pages
             Datasource = await CompanyService.ReadAsync();
         }
 
-        // Method to delete a company item from the datasource
-        void DeleteItem(Companies item)
+        // Quick filter method to filter companies based on search string
+        private bool QuickFilter(Companies company) => FilterFunc(company, _searchString);
+
+        // Method to apply filter logic based on the selected filter criteria
+        private bool FilterFunc(Companies company, string searchString)
         {
-            Datasource.Remove(item);
-            _events.Insert(0, $"Event = DeleteItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            searchString = searchString.Trim().ToLower();
+            switch (_filterBy)
+            {
+                case "Name":
+                    return company.Name.ToLower().Contains(searchString);
+                case "Address":
+                    return company.Address.ToLower().Contains(searchString);
+                case "City":
+                    return company.City.ToLower().Contains(searchString);
+                default:
+                    return false;
+            }
+        }
+
+        // Method to delete a company item from the datasource
+        async Task DeleteItem(Companies item)
+        {
+            // Show confirmation dialog before deletion
+            bool? result = await DialogService.ShowMessageBox(
+                "Delete Confirmation",
+                "Are you sure you want to delete this company?",
+                yesText: "Delete", cancelText: "Cancel");
+
+            if (result == true)
+            {
+                // Remove item from the datasource
+                Datasource.Remove(item);
+                _events.Insert(0, $"Event = DeleteItem, Data = {JsonSerializer.Serialize(item)}");
+
+                // Call the service to delete the company
+                await CompanyService.DeleteAsync(item);
+
+                // Show success notification
+                Snackbar.Add("Company deleted successfully", Severity.Success);
+            }
         }
 
         // Method to handle the start of editing a company item
@@ -61,26 +100,42 @@ namespace Payment.Web.Pages
             // Update the datasource with the response
             Datasource[index] = response;
 
-            _events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+            _events.Insert(0,
+                $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+
+            // Show success notification
+            Snackbar.Add("Company updated successfully", Severity.Success);
         }
 
         // Enumeration for different view states
         public enum ViewState
         {
-            Create, Update, Delete
+            Create,
+            Update,
+            Delete
         }
 
         // Method to open a dialog for creating a new company
         private async Task OpenDialogAsync()
         {
-            var options = new DialogOptions { CloseOnEscapeKey = true };
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
+            var dialogParameters = new DialogParameters();
 
             // Show the dialog and wait for it to return a result
-            var dialogReference = await DialogService.ShowAsync<CompanyDialog>("Simple Dialog", options);
+            var dialog = DialogService.Show<CompanyDialog>("Add New Company", dialogParameters, options);
+            var result = await dialog.Result;
 
-            // Add the new company to the datasource
-            var response = await dialogReference.GetReturnValueAsync<Companies>();
-            Datasource.Add(response);
+            if (!result.Canceled)
+            {
+                var newCompanies = (Companies)result.Data;
+
+                // Add the new customer to the datasource
+                var response = await CompanyService.CreateAsync(newCompanies);
+                Datasource.Add(response);
+
+                // Show success notification
+                Snackbar.Add("Customer added successfully", Severity.Success);
+            }
         }
     }
 }

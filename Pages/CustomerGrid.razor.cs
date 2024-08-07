@@ -14,7 +14,7 @@ namespace Payment.Web.Pages
         private List<string> _events = new();
         private bool _editTriggerRowClick;
         private string _searchString = "";
-        private string _filterBy = "name";
+        private string _filterBy = "Name of the customer";
 
         // List to hold customer data for the grid
         public List<Customers> Datasource { get; set; }
@@ -67,8 +67,10 @@ namespace Payment.Web.Pages
                 // Remove item from the datasource
                 Datasource.Remove(item);
                 _events.Insert(0, $"Event = DeleteItem, Data = {JsonSerializer.Serialize(item)}");
+                
                 // Call the service to delete the customer
                 await CustomerService.DeleteAsync(item);
+                
                 // Show success notification
                 Snackbar.Add("Customer deleted successfully", Severity.Success);
             }
@@ -90,11 +92,15 @@ namespace Payment.Web.Pages
         async Task CommittedItemChanges(Customers item)
         {
             var index = Datasource.IndexOf(item);
+            
             // Update the customer item via the service
             var response = await CustomerService.UpdateAsync(item);
+            
             // Update the datasource with the response
             Datasource[index] = response;
+            
             _events.Insert(0, $"Event = CommittedItemChanges, Data = {JsonSerializer.Serialize(item)}");
+            
             // Show success notification
             Snackbar.Add("Customer updated successfully", Severity.Success);
         }
@@ -104,6 +110,7 @@ namespace Payment.Web.Pages
         {
             var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
             var dialogParameters = new DialogParameters();
+            
             // Show the dialog and wait for it to return a result
             var dialog = DialogService.Show<CustomerDialog>("Add New Customer", dialogParameters, options);
             var result = await dialog.Result;
@@ -111,9 +118,11 @@ namespace Payment.Web.Pages
             if (!result.Canceled)
             {
                 var newCustomer = (Customers)result.Data;
+                
                 // Add the new customer to the datasource
                 var response = await CustomerService.CreateAsync(newCustomer);
                 Datasource.Add(response);
+                
                 // Show success notification
                 Snackbar.Add("Customer added successfully", Severity.Success);
             }
