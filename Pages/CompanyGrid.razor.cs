@@ -132,9 +132,10 @@ namespace Payment.Web.Pages
                 // Add the new customer to the datasource
                 var response = await CompanyService.CreateAsync(newCompanies);
                 Datasource.Add(response);
-
+                
                 // Show success notification
                 Snackbar.Add("Customer added successfully", Severity.Success);
+                
             }
         }
     }

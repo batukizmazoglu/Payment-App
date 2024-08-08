@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Payment.Client;
 using Payment.Shared;
@@ -10,16 +8,13 @@ namespace Payment.Web.Pages
     public partial class BillDialog
     {
         // Injected service to handle bill operations
-        [Inject]
-        public BillService BillService { get; set; }
+        [Inject] public BillService BillService { get; set; }
 
         // Cascading parameter to control the dialog instance
-        [CascadingParameter]
-        private MudDialogInstance MudDialog { get; set; }
+        [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
         
         // Injected service to handle dialog operations
-        [Inject]
-        public IDialogService DialogService { get; set; }
+        [Inject] public IDialogService DialogService { get; set; }
 
         // Model to bind bill data in the dialog
         public Bills Model { get; set; } = new Bills();

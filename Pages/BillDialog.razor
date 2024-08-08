@@ -1,13 +1,36 @@
 ﻿<MudDialog>
     <DialogContent>
-        <MudTextField T="int" Label="Company's ID" @bind-Value="@Model.CompanyNo"></MudTextField>
-        <MudTextField T="int" Label="Customer's ID" @bind-Value="@Model.CustomerNo"></MudTextField>
-        <MudTextField T="string" Label="Type" @bind-Value="@Model.Type"></MudTextField>
-        <MudTextField T="int" Label="Amount" @bind-Value="@Model.Amount"></MudTextField>
-        <MudTextField T="bool" Label="Paid" @bind-Value="@Model.Paid"></MudTextField>
+        <MudSelect T="int?" Label="Company Number" Clearable="true" Required="true" @bind-Value="Model.CompanyNo">
+            @foreach (int? companyNo in Companies)
+            {
+                <MudSelectItem Value="@companyNo">@companyNo</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudSelect T="int?" Label="Customer Number" Clearable="true" Required="true" @bind-Value="Model.CustomerNo">
+            @foreach (int? customerNo in Customers)
+            {
+                <MudSelectItem Value="@customerNo">@customerNo</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudTextField T="string" Label="Type" @bind-Value="Model.Type"></MudTextField>
+        <MudTextField T="int" Label="Amount" @bind-Value="Model.Amount"></MudTextField>
+        <MudTextField T="bool" Label="Paid" @bind-Value="Model.Paid"></MudTextField>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
         <MudButton Color="Color.Primary" OnClick="Submit">Add</MudButton>
     </DialogActions>
 </MudDialog>
+
+@code {
+    private List<int?> Companies = new List<int?>();
+    private List<int?> Customers = new List<int?>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Companies = await BillService.GetCompanyNosAsync();
+        Customers = await BillService.GetCustomerNosAsync();
+    }
+}
