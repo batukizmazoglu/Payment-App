@@ -22,7 +22,6 @@ namespace Payment.Web.Pages
         // Injected services for managing dialogs, bill operations, and notifications
         [Inject] public IDialogService DialogService { get; set; }
         [Inject] public BillService BillService { get; set; }
-        
         [Inject] public ISnackbar Snackbar { get; set; }
         
         // Method to initialize component and load data from the service
@@ -43,16 +42,16 @@ namespace Payment.Web.Pages
             searchString = searchString.Trim().ToLower();
             switch (_filterBy)
             {
-                case "Company's ID":
-                    return bill.CompanyNo.ToString().Contains(searchString);
-                case "Customer's ID":
-                    return bill.CustomerNo.ToString().Contains(searchString);
+                case "Company's Name":
+                    return bill.CompanyName.ToLower().Contains(searchString);
+                case "Customer's Name":
+                    return bill.CustomerName.ToLower().Contains(searchString);
                 case "Type":
                     return bill.Type.ToLower().Contains(searchString);
                 case "Amount":
                     return bill.Amount.ToString().Contains(searchString);
-                // case "Paid":
-                //     return bill.Paid().Contains(searchString);
+                 case "Paid":
+                     return bill.Paid.ToString().Contains(searchString);
                 default:
                     return false;
             }
@@ -84,13 +83,13 @@ namespace Payment.Web.Pages
         // Method to handle the start of editing a bill item
         void StartedEditingItem(Bills item)
         {
-            _events.Insert(0, $"Event = StartedEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+            _events.Insert(0, $"Event = StartedEditingItem, Data = {JsonSerializer.Serialize(item)}");
         }
 
         // Method to handle cancellation of editing a bill item
         void CanceledEditingItem(Bills item)
         {
-            _events.Insert(0, $"Event = CanceledEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+            _events.Insert(0, $"Event = CanceledEditingItem, Data = {JsonSerializer.Serialize(item)}");
         }
 
         // Method to commit changes made to a bill item
@@ -104,7 +103,7 @@ namespace Payment.Web.Pages
             // Update the datasource with the response
             Datasource[index] = response;
 
-            _events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+            _events.Insert(0, $"Event = CommittedItemChanges, Data = {JsonSerializer.Serialize(item)}");
             
             // Show success notification
             Snackbar.Add("Bill updated successfully", Severity.Success);

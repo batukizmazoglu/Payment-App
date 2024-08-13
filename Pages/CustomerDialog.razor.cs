@@ -8,16 +8,13 @@ namespace Payment.Web.Pages
     public partial class CustomerDialog
     {
         // Injected service to handle customer operations
-        [Inject]
-        public CustomerService CustomerService { get; set; }
+        [Inject] public CustomerService CustomerService { get; set; }
 
         // Cascading parameter to manage the dialog instance
-        [CascadingParameter]
-        private MudDialogInstance MudDialog { get; set; }
+        [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
 
         // Injected service to manage dialogs
-        [Inject]
-        public IDialogService DialogService { get; set; }
+        [Inject] public IDialogService DialogService { get; set; }
 
         // Model to bind customer data in the dialog
         public Customers Model { get; set; } = new Customers();

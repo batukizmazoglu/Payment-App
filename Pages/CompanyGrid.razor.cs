@@ -44,7 +44,7 @@ namespace Payment.Web.Pages
             switch (_filterBy)
             {
                 case "Name":
-                    return company.Name.ToLower().Contains(searchString);
+                    return company.CompanyName.ToLower().Contains(searchString);
                 case "Address":
                     return company.Address.ToLower().Contains(searchString);
                 case "City":

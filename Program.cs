@@ -1,24 +1,13 @@
-//using Payment.Web.Data;
-using Payment.Web.Pages;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using MudBlazor.Services;
 using Payment.Client;
-using Payment.Shared.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-//builder.Services.AddSingleton<WeatherForecastService>();
-//builder.Services.AddScoped(x=> new TestModel(1));
-//builder.Services.tra<List<dataGridCustomers>>();
 
-//builder.Services.AddDbContext<TestContext>(options =>
-//             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddServerSideBlazor();
+
 builder.Services.AddScoped<CustomerService>();
 
 builder.Services.AddScoped<CompanyService>();
@@ -44,8 +33,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.MapBlazorHub();
+
 app.MapFallbackToPage("/_Host");
-
-
 
 app.Run();

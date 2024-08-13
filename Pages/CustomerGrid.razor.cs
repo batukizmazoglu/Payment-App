@@ -39,11 +39,11 @@ namespace Payment.Web.Pages
         {
             if (string.IsNullOrWhiteSpace(searchString))
                 return true;
-            searchString = searchString.Trim().ToLower();
+            searchString = _searchString.Trim().ToLower();
             switch (_filterBy)
             {
                 case "name":
-                    return customer.Name.ToLower().Contains(searchString);
+                    return customer.CustomerName.ToLower().Contains(searchString);
                 case "surname":
                     return customer.Surname.ToLower().Contains(searchString);
                 case "age":

@@ -186,3 +186,14 @@ C:\Users\user\Source\Repos\Payment-App\obj\Debug\net7.0\refint\Payment.Web.dll
 C:\Users\user\Source\Repos\Payment-App\obj\Debug\net7.0\Payment.Web.pdb
 C:\Users\user\Source\Repos\Payment-App\obj\Debug\net7.0\Payment.Web.genruntimeconfig.cache
 C:\Users\user\Source\Repos\Payment-App\obj\Debug\net7.0\ref\Payment.Web.dll
+C:\Users\user\Source\Repos\Payment-App\bin\Debug\net7.0\Payment.API.deps.json
+C:\Users\user\Source\Repos\Payment-App\bin\Debug\net7.0\Payment.API.runtimeconfig.json
+C:\Users\user\Source\Repos\Payment-App\bin\Debug\net7.0\Payment.API.exe
+C:\Users\user\Source\Repos\Payment-App\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\user\Source\Repos\Payment-App\bin\Debug\net7.0\Microsoft.OpenApi.dll
+C:\Users\user\Source\Repos\Payment-App\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\user\Source\Repos\Payment-App\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\user\Source\Repos\Payment-App\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\user\Source\Repos\Payment-App\bin\Debug\net7.0\Payment.API.dll
+C:\Users\user\Source\Repos\Payment-App\bin\Debug\net7.0\Payment.API.pdb
+C:\Users\user\Source\Repos\Payment-App\obj\Debug\net7.0\Payment.Web.MvcApplicationPartsAssemblyInfo.cs

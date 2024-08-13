@@ -6,7 +6,7 @@
     <MudGrid>
         <MudItem xs="12" sm="6" md="4">
             <MudSelect T="string" Label="Filter by" @bind-Value="_filterBy">
-                <MudSelectItem Value="@("Name")">Name</MudSelectItem>
+                <MudSelectItem Value="@("Name")">CustomerName</MudSelectItem>
                 <MudSelectItem Value="@("Surname")">Surname</MudSelectItem>
                 <MudSelectItem Value="@("Age")">Age</MudSelectItem>
                 <MudSelectItem Value="@("Balance")">Balance</MudSelectItem>
@@ -35,8 +35,8 @@
                       AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
     <Columns>
-        <PropertyColumn Property="x => x.CustomerNo" Title="Customer's ID" />
-        <PropertyColumn Property="x => x.Name" Title="Name" />
+        <PropertyColumn Property="x => x.CustomerNo" Title="ID" />
+        <PropertyColumn Property="x => x.CustomerName" Title="Name" />
         <PropertyColumn Property="x => x.Surname" Title="Surname" />
         <PropertyColumn Property="x => x.Age" Title="Age" />
         <PropertyColumn Property="x => x.Balance" Title="Balance" />
