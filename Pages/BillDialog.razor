@@ -1,18 +1,25 @@
 ﻿<MudDialog>
     <DialogContent>
+        @if (_companies != null && _companies.Any() && _customers != null && _customers.Any())
+        {
         <MudSelect T="string" Label="Company Name" Clearable="true" Required="true" @bind-Value="Model.CompanyName">
-            @foreach (string CompanyName in Companies)
+            @foreach (string CompanyName in _companies)
             {
-                <MudSelectItem Value="@CompanyName">@CompanyName</MudSelectItem>
+            <MudSelectItem Value="@CompanyName">@CompanyName</MudSelectItem>
             }
         </MudSelect>
 
         <MudSelect T="string" Label="Customer Name" Clearable="true" Required="true" @bind-Value="Model.CustomerName">
-            @foreach (string CustomerName in Customers)
+            @foreach (string CustomerName in _customers)
             {
-                <MudSelectItem Value="@CustomerName">@CustomerName</MudSelectItem>
+            <MudSelectItem Value="@CustomerName">@CustomerName</MudSelectItem>
             }
         </MudSelect>
+        }
+        else
+        {
+        <MudText Typo="Typo.subtitle1">Loading data...</MudText>
+        }
 
         <MudTextField T="string" Label="Type" @bind-Value="Model.Type"></MudTextField>
         <MudTextField T="int" Label="Amount" @bind-Value="Model.Amount"></MudTextField>
@@ -23,3 +30,7 @@
         <MudButton Color="Color.Primary" OnClick="Submit">Add</MudButton>
     </DialogActions>
 </MudDialog>
+
+@code {
+    
+}

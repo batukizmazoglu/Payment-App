@@ -12,7 +12,7 @@ namespace Payment.Web.Pages
 
         // Cascading parameter to control the dialog instance
         [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
-
+        
         // Injected service to handle dialog operations
         [Inject] public IDialogService DialogService { get; set; }
 
@@ -31,14 +31,28 @@ namespace Payment.Web.Pages
 
         // Method to cancel the dialog
         private void Cancel() => MudDialog.Cancel();
-
-        private List<string> Companies = new List<string>();
-        private List<string> Customers = new List<string>();
+        
+        private List<string> _companies = new List<string>();
+        private List<string> _customers = new List<string>();
+        private string errorMessage;
 
         protected override async Task OnInitializedAsync()
         {
-            Companies = await BillService.GetCompanyNamesAsync();
-            Customers = await BillService.GetCustomerNamesAsync();
+            await LoadDataAsync();   
+        }
+    
+        private async Task LoadDataAsync()
+        {
+            try
+            {
+                _companies = await BillService.GetCompanyNamesAsync();
+                _customers = await BillService.GetCustomerNamesAsync();
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+            }
         }
     }
 }
