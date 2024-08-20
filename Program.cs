@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using MudBlazor.Services;
 using Payment.Client;
+using Payment.Shared.Interfaces;
+using Payment.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,10 @@ builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<CompanyService>();
 
 builder.Services.AddScoped<BillService>();
+
+builder.Services.AddScoped<UserService>();
+
+// builder.Services.AddScoped<IUserInterface,UserService >();
 
 builder.Services.AddMudServices();
 
@@ -35,5 +41,13 @@ app.UseRouting();
 app.MapBlazorHub();
 
 app.MapFallbackToPage("/_Host");
+
+// builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
+// builder.Services.AddAuthorization();
+//
+// app.UseAuthentication();
+//
+// app.UseAuthorization();
 
 app.Run();

@@ -10,6 +10,7 @@
     <PackageReference Include="GenFu" Version="1.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.20">
       <PrivateAssets>all</PrivateAssets>
@@ -24,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Payment.API\Payment.API.csproj" />
     <ProjectReference Include="..\Payment.Client\Payment.Client.csproj" />
     <ProjectReference Include="..\Payment.Shared\Payment.Shared.csproj" />
   </ItemGroup>

@@ -1,0 +1,86 @@
+@page "/login"
+@using Payment.Shared.Models
+@inject IUserInterface UserService
+@inject NavigationManager NavigationManager
+
+<h3>Login</h3>
+
+@if (isPasswordRequested)
+{
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" @bind="password" />
+        <button @onclick="LoginUser">Login</button>
+    </div>
+}
+else if (!userExists)
+{
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" @bind="password" />
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" @bind="confirmPassword" />
+
+        <div>
+            <input type="radio" id="customer" name="role" bind-value="Customer" @bind="role" />
+            <label for="customer">Customer</label>
+
+            <input type="radio" id="company" name="role" bind-value="Company" @bind="role" />
+            <label for="company">Company</label>
+        </div>
+
+        <button @onclick="RegisterUser">Register</button>
+    </div>
+}
+
+@code {
+    private string username;
+    private string password;
+    private string confirmPassword;
+    private string role;
+    private bool isPasswordRequested = false;
+    private bool userExists = false;
+
+    private async Task CheckUsername()
+    {
+        var response = await UserService.IsCustomerAsync(username) || await UserService.IsCompanyAsync(username);
+        if (response)
+        {
+            userExists = true;
+            isPasswordRequested = true;
+        }
+        else
+        {
+            userExists = false;
+            isPasswordRequested = false;
+        }
+    }
+
+    private async Task LoginUser()
+    {
+        var loginModel = new LoginModel
+        {
+            Username = username,
+            Password = password
+        };
+
+        // Logic to send login data to the controller and handle response
+    }
+
+    private async Task RegisterUser()
+    {
+        if (password == confirmPassword)
+        {
+            var registerModel = new RegisterModel
+            {
+                Username = username,
+                Password = password,
+                ConfirmPassword = confirmPassword,
+                Role = role
+            };
+
+            // Logic to send registration data to the controller and handle response
+        }
+    }
+}

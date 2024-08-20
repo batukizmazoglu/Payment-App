@@ -2,7 +2,7 @@
 
 <PageTitle>Payment App</PageTitle>
 
-<MudGrid>
+@*<MudGrid>
     <MudItem xs="6" sm="4">
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">Total Customers: </MudPaper>
     </MudItem>
@@ -21,8 +21,15 @@
     <MudItem xs="12">
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">Recent Activity</MudPaper>
     </MudItem>
-</MudGrid>
+</MudGrid>*@
 
-@code {
-   
-}
+<EditForm Model="@_loginModel" OnValidSubmit="@CheckUsername">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <InputText id="username" @bind-Value="@_loginModel.Username" placeholder="Username" />
+    <button type="submit">Submit</button>
+</EditForm>
+
+<MudText Align="Align.Left"><b></b> Enter to logging in to your account or signing up.</MudText>
+<MudTextField @bind-Value="UserInput" Label="Enter your name here." Variant="Variant.Outlined"></MudTextField>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true">Let's Go</MudButton>
