@@ -14,9 +14,6 @@ public partial class Index
     {
        var isUserNameValid =  await UserService.CheckUsername(_loginModel.Username);
        
-       
     }
-    
-   
 }
     
