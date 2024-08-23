@@ -1,14 +1,1 @@
-﻿@page "/"
-
-<PageTitle>Payment App</PageTitle>
-
-<EditForm Model="@_loginModel" OnValidSubmit="@CheckUsername">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <InputText id="username" @bind-Value="@_loginModel.Username" placeholder="Username" />
-    <button type="submit">Submit</button>
-</EditForm>
-
-<MudText Align="Align.Left"><b></b> Enter to logging in to your account or signing up.</MudText>
-<MudTextField @bind-Value="UserInput" Label="Enter your name here." Variant="Variant.Outlined"></MudTextField>
-<MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true">Let's Go</MudButton>
+﻿
